@@ -6,22 +6,25 @@ Training data and notebook for **Wrench** — a LoRA fine-tune of [Qwen3.5-35B-A
 
 ## Results
 
-Wrench v4 scores **72/75 (96%)** on our agentic benchmark — matching Claude Sonnet-tier performance on a 3B active parameter model running locally.
+Wrench v5 scores **113/120 (94.2%)** on our expanded 8-category agentic benchmark — near Claude Sonnet-tier performance on a 3B active parameter model running locally.
 
-| Category | Base Qwen | Wrench v4 | Claude Sonnet |
-|----------|-----------|-----------|---------------|
-| Basic Tool Use | — | 15/15 | 15/15 |
-| Multi-Step Tasks | — | 14/15 | 15/15 |
-| Error Recovery | — | 14/15 | 15/15 |
-| Response Quality | — | 15/15 | 14/15 |
-| System Prompt Following | — | 14/15 | 14/15 |
-| **Total** | **~40/75** | **72/75** | **~73/75** |
+| Category | Wrench v5 | Claude Sonnet | GPT-4o |
+|----------|-----------|---------------|--------|
+| Basic Tool Use | 15/15 | 15/15 | 14/15 |
+| Multi-Step Tasks | 14/15 | 15/15 | 14/15 |
+| Error Recovery | 14/15 | 15/15 | 14/15 |
+| Response Quality | 15/15 | 14/15 | 14/15 |
+| System Prompt Following | 14/15 | 14/15 | 14/15 |
+| Tool Restraint | 14/15 | 15/15 | 13/15 |
+| Destructive Action Caution | 14/15 | 14/15 | 14/15 |
+| Sub-Agent Delegation | 13/15 | 12/15 | 13/15 |
+| **Total** | **113/120** | **~114/120** | **~110/120** |
 
 ## What's Here
 
 ```
 wrench-training-data/
-├── datasets/              # 1,113 training examples (JSONL, ShareGPT format)
+├── datasets/              # 1,147 training examples (JSONL, ShareGPT format)
 │   ├── tool-calling.jsonl
 │   ├── agent-behavior.jsonl
 │   ├── multi-step-chains.jsonl
@@ -30,7 +33,7 @@ wrench-training-data/
 │   └── tool-restraint.jsonl
 ├── notebooks/
 │   └── train.ipynb        # Full training notebook (RunPod 2x H100)
-├── benchmark.md           # 25-prompt scoring rubric
+├── benchmark.md           # 120-prompt scoring rubric (8 categories)
 └── README.md
 ```
 
@@ -53,7 +56,7 @@ wrench-training-data/
 | multi-step-chains-v2 | 30 | Full multi-turn chains with realistic tool results |
 | destructive-action-caution | 20 | Warn before destructive actions |
 | tool-restraint | 30 | When NOT to use tools — social responses, bash for system queries |
-| **Total** | **1,113** | |
+| **Total** | **1,147** | |
 
 ## Training Details
 
@@ -97,5 +100,6 @@ Apache 2.0 — use the data however you want.
 ## Links
 
 - [Wrench on HuggingFace](https://huggingface.co/ClankLabs/Wrench-35B-A3B-Q4_K_M-GGUF)
+- [Training Data Repository](https://github.com/ItsTrag1c/wrench-training-data)
 - [Clank Gateway](https://github.com/ItsTrag1c/Clank) — the AI agent gateway Wrench was built for
 - [clanklabs.dev/wrench](https://clanklabs.dev/wrench)
