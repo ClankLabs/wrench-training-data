@@ -1,24 +1,27 @@
 # Wrench Training Data
 
-Training data and notebook for **Wrench** — a LoRA fine-tune of [Qwen3.5-35B-A3B](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) purpose-built for agentic tool calling.
+Training data and notebooks for **Wrench** — a family of LoRA fine-tuned models purpose-built for agentic tool calling.
 
-**Model download:** [ClankLabs/Wrench-35B-A3B-Q4_K_M-GGUF](https://huggingface.co/ClankLabs/Wrench-35B-A3B-Q4_K_M-GGUF) on HuggingFace
+| Model | Base | Score | VRAM | Download |
+|-------|------|-------|------|----------|
+| **Wrench 35B** | [Qwen3.5-35B-A3B](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) (MoE) | 113/120 (94.2%) | 16GB | [HuggingFace](https://huggingface.co/ClankLabs/Wrench-35B-A3B-Q4_K_M-GGUF) |
+| **Wrench 9B** | [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) (dense) | 105/120 (87.5%) | 8GB | [HuggingFace](https://huggingface.co/ClankLabs/Wrench-9B-Q4_K_M-GGUF) |
 
 ## Results
 
-Wrench v5 scores **113/120 (94.2%)** on our expanded 8-category agentic benchmark — near Claude Sonnet-tier performance on a 3B active parameter model running locally.
+Wrench 35B scores **113/120 (94.2%)** and Wrench 9B scores **105/120 (87.5%)** on our 8-category agentic benchmark — near Claude Sonnet-tier performance running locally on consumer hardware.
 
-| Category | Wrench v5 | Claude Sonnet | GPT-4o |
-|----------|-----------|---------------|--------|
-| Basic Tool Use | 15/15 | 15/15 | 14/15 |
-| Multi-Step Tasks | 14/15 | 15/15 | 14/15 |
-| Error Recovery | 14/15 | 15/15 | 14/15 |
-| Response Quality | 15/15 | 14/15 | 14/15 |
-| System Prompt Following | 14/15 | 14/15 | 14/15 |
-| Tool Restraint | 14/15 | 15/15 | 13/15 |
-| Destructive Action Caution | 14/15 | 14/15 | 14/15 |
-| Sub-Agent Delegation | 13/15 | 12/15 | 13/15 |
-| **Total** | **113/120** | **~114/120** | **~110/120** |
+| Category | Wrench 35B | Wrench 9B | Claude Sonnet | GPT-4o |
+|----------|------------|-----------|---------------|--------|
+| Basic Tool Use | 15/15 | 11/15 | 15/15 | 14/15 |
+| Multi-Step Tasks | 14/15 | 13/15 | 15/15 | 14/15 |
+| Error Recovery | 14/15 | 14/15 | 15/15 | 14/15 |
+| Response Quality | 15/15 | 14/15 | 14/15 | 14/15 |
+| System Prompt Following | 14/15 | 12/15 | 14/15 | 14/15 |
+| Tool Restraint | 14/15 | 14/15 | 15/15 | 13/15 |
+| Destructive Action Caution | 14/15 | 14/15 | 14/15 | 14/15 |
+| Sub-Agent Delegation | 13/15 | 13/15 | 12/15 | 13/15 |
+| **Total** | **113/120** | **105/120** | **~114/120** | **~110/120** |
 
 ## What's Here
 
@@ -60,12 +63,21 @@ wrench-training-data/
 
 ## Training Details
 
+### Wrench 35B
 - **Base model:** Qwen3.5-35B-A3B (MoE, 3B active parameters)
 - **Method:** LoRA (rank 64, alpha 128) via HuggingFace PEFT + Trainer
 - **Hardware:** 2x NVIDIA H100 80GB (RunPod)
 - **Training time:** ~1 hour per run
 - **Hyperparameters:** batch_size=1, gradient_accumulation=8, 2 epochs, lr=1e-4
-- **Output format:** GGUF Q4_K_M (20GB, runs on 16GB VRAM)
+- **Output format:** GGUF Q4_K_M (~20GB, runs on 16GB VRAM)
+
+### Wrench 9B
+- **Base model:** Qwen3.5-9B (dense)
+- **Method:** LoRA (rank 32, alpha 64) via HuggingFace PEFT + Trainer
+- **Hardware:** 1x NVIDIA H100 80GB (RunPod)
+- **Training time:** ~30 min per run
+- **Hyperparameters:** batch_size=1, gradient_accumulation=8, 2 epochs, lr=1e-4
+- **Output format:** GGUF Q4_K_M (~5GB, runs on 8GB VRAM)
 
 ## Data Format
 
@@ -99,7 +111,8 @@ Apache 2.0 — use the data however you want.
 
 ## Links
 
-- [Wrench on HuggingFace](https://huggingface.co/ClankLabs/Wrench-35B-A3B-Q4_K_M-GGUF)
+- [Wrench 35B on HuggingFace](https://huggingface.co/ClankLabs/Wrench-35B-A3B-Q4_K_M-GGUF)
+- [Wrench 9B on HuggingFace](https://huggingface.co/ClankLabs/Wrench-9B-Q4_K_M-GGUF)
 - [Training Data Repository](https://github.com/ClankLabs/wrench-training-data)
 - [Clank Gateway](https://github.com/ClankLabs/Clank) — the AI agent gateway Wrench was built for
 - [clanklabs.dev/wrench](https://clanklabs.dev/wrench)
