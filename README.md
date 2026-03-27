@@ -100,6 +100,6 @@ Apache 2.0 — use the data however you want.
 ## Links
 
 - [Wrench on HuggingFace](https://huggingface.co/ClankLabs/Wrench-35B-A3B-Q4_K_M-GGUF)
-- [Training Data Repository](https://github.com/ItsTrag1c/wrench-training-data)
-- [Clank Gateway](https://github.com/ItsTrag1c/Clank) — the AI agent gateway Wrench was built for
+- [Training Data Repository](https://github.com/ClankLabs/wrench-training-data)
+- [Clank Gateway](https://github.com/ClankLabs/Clank) — the AI agent gateway Wrench was built for
 - [clanklabs.dev/wrench](https://clanklabs.dev/wrench)
